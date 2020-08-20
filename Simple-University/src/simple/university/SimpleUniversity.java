@@ -135,7 +135,11 @@ class Student extends Person{
         this.studentSubject=studentSubject;
     }
     public void AddStudentSubject(Subject s){
-        this.studentSubject.add(s);
+        if (s.ID!=0){
+        this.studentSubject.add(s);}
+        else{
+            System.out.println("you can't add this subject");
+        }
     }
     public void DeleteStudentSubject(Subject s){
         this.studentSubject.remove(s);
@@ -200,8 +204,8 @@ class Teacher extends Person{
     public void setPositions(String positions) {
         this.positions = positions;
     }
-    public void setTeacherSubject(ArrayList<Subject> studentSubject) {
-        this.teacherSubject = studentSubject;
+    public void setTeacherSubject(ArrayList<Subject> teacherSubject) {
+        this.teacherSubject = teacherSubject;
     }
 
     public String getPositions() {
@@ -216,7 +220,11 @@ class Teacher extends Person{
         return super.toString()+" positions=" + positions+" Subjects= "+teacherSubject ;
     }
     public void AddTeacherSubject(Subject s){
-        this.teacherSubject.add(s);
+        if(s.ID!=0){
+        this.teacherSubject.add(s);}
+        else{
+            System.out.println("you can't add this subject");
+        }
     }
     public void DeleteTeacherSubject(Subject s){
         this.teacherSubject.remove(s);
@@ -308,7 +316,31 @@ class Subject{
 }
 
 public class SimpleUniversity {
-
+    static  ArrayList<Subject> subjects=new ArrayList<Subject>();
+    static  ArrayList<Student> students=new ArrayList<Student>();
+    static ArrayList<Teacher> teachers=new ArrayList<Teacher>();
+      
+    public static void AddSubjectsList(Subject s){
+           if (s.ID==0){
+               System.out.println("You can't add this subject you must edit the ID");
+           }
+           else{
+               subjects.add(s);
+           }}
+    public static void AddTeachersList(Teacher t){
+           if (t.ID==0){
+               System.out.println("You can't add this teacher you must edit the ID");
+           }
+           else{
+               teachers.add(t);
+           }}
+    public static void AddStudentsList(Student s){
+           if (s.ID==0){
+               System.out.println("You can't add this subject you must edit the ID");
+           }
+           else{
+               students.add(s);
+           }}
     public static void main(String[] args) {
         //Scanner input=new Scanner(System.in);
         
@@ -317,22 +349,21 @@ public class SimpleUniversity {
         ArrayList<Subject> teacherSubjects=new ArrayList<Subject>();
         
         //create lists of subjects & Students & Teachers
-        ArrayList<Subject> subjects=new ArrayList<Subject>();
-        ArrayList<Student> students=new ArrayList<Student>();
-        ArrayList<Teacher>teachers=new ArrayList<Teacher>();
+
         
 
         
-        Subject math=new Subject("41","math",3,"math");
+       Subject math=new Subject("41","math",3,"math");
         Subject software=new Subject("05442","software",3,"CS");
         Subject database=new Subject("4322222","DataBase",3,"CS");
         Subject web=new Subject("441689","Web",4,"CS");
-        subjects.add(math);
-        subjects.add(software);
-        subjects.add(database);
-        subjects.add(web);
+
+        AddSubjectsList(math);
+        AddSubjectsList(software);
+        AddSubjectsList(database);
+        AddSubjectsList(web);
         System.out.println(subjects);
-        
+       
         //create students and add subjects
         Student s1=new Student("55545","Ahmad","Salman","0598648715",25,'m',"cs","as.ahmad.salman@gmail.com",4.79,studentSubjects);
         s1.AddStudentSubject(math);
@@ -349,22 +380,22 @@ public class SimpleUniversity {
         
         //add s1 to StudentsList
         students.add(s1);
-        System.out.println("Students:/n"+students);
+        System.out.println("Students:\n"+students);
         
-        //create teacher and add subjects
+       //create teacher and add subjects
         Teacher t1=new Teacher("5222222","ali","mohammad","052346789",30,'m',"cs","PDH",teacherSubjects);
+        Teacher t2=new Teacher("052","ali2","mohammad","052346789",30,'m',"cs","PDH",teacherSubjects);
         System.out.println(t1.toString());
         t1.AddTeacherSubject(software);
         t1.AddTeacherSubject(database);
-        System.out.println(t1.toString());
+        System.out.println(t2.toString());
         
         //add t1 to TeacherList
-        teachers.add(t1);
-        System.out.println("Teachers:/n"+teachers);
+        AddTeachersList(t1);
+        AddTeachersList(t2);
+        System.out.println("Teachers:\n"+teachers);
 
         
-    }
-    
-    
-}
+       }
+} 
 
