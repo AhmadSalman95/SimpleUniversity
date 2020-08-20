@@ -51,8 +51,14 @@ class Person{
     public void setFieldOf(String fieldOf) {
         this.fieldOf = fieldOf;
     }
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setID(String ID) {
+        int check=checkID(ID);
+        if (check!=0){
+            this.ID=check;
+        }
+        else{
+            System.out.println("error in ID");
+        }
     }
     
     //Gets functions
@@ -134,23 +140,20 @@ class Student extends Person{
     public void DeleteStudentSubject(Subject s){
         this.studentSubject.remove(s);
     }
-    
 
-    public void setStudentSubject(ArrayList<Subject> studentSubject) {
-        this.studentSubject = studentSubject;
-    }
-
-    public ArrayList<Subject> getStudentSubject() {
-        return studentSubject;
-    }
-        
-            
-            
-        
-    
     //sets functions
     public void setEmail(String email) {
-        this.email = email;
+        boolean check=checkOfEmail(email);
+        if(check){
+            this.email = email;
+        }
+        else {
+            System.out.println("this Email is innvalid");
+        }
+        
+    }
+    public void setStudentSubject(ArrayList<Subject> studentSubject) {
+        this.studentSubject = studentSubject;
     }
     public void setGPA(double GPA) {
         this.GPA = GPA;
@@ -162,6 +165,9 @@ class Student extends Person{
     }
     public double getGPA() {
         return GPA;
+    }
+    public ArrayList<Subject> getStudentSubject() {
+        return studentSubject;
     }
 
     @Override
@@ -194,9 +200,15 @@ class Teacher extends Person{
     public void setPositions(String positions) {
         this.positions = positions;
     }
+    public void setTeacherSubject(ArrayList<Subject> studentSubject) {
+        this.teacherSubject = studentSubject;
+    }
 
     public String getPositions() {
         return positions;
+    }
+    public ArrayList<Subject> getTeacherSubject() {
+        return teacherSubject;
     }
 
     @Override
@@ -209,16 +221,7 @@ class Teacher extends Person{
     public void DeleteTeacherSubject(Subject s){
         this.teacherSubject.remove(s);
     }
-    
-
-    public void setTeacherSubject(ArrayList<Subject> studentSubject) {
-        this.teacherSubject = studentSubject;
-    }
-
-    public ArrayList<Subject> getTeacherSubject() {
-        return teacherSubject;
-    }
-    
+  
 }
 class Subject{
     //attributs
@@ -230,16 +233,28 @@ class Subject{
     //the constractor
     public Subject(){
     }
-    public Subject(int ID, String name,int hours,String fieldOf){
-        this.ID=ID;
+    public Subject(String ID, String name,int hours,String fieldOf){
+        int chID=checkID(ID);
+        if (chID==0){
+            this.ID=0;
+        }
+        else{
+            this.ID=chID;
+        }
         this.name=name;
         this.hours=hours;
         this.fieldOf=fieldOf;
     }
 
     //Sets functions
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setID(String ID) {
+        int chID=checkID(ID);
+        if (chID==0){
+            this.ID=0;
+        }
+        else{
+            this.ID=chID;
+        }
     }
     public void setName(String name) {
         this.name = name;
@@ -269,24 +284,23 @@ class Subject{
     public String toString() {
         return String.format("ID=" + ID + ", name=" + name + ", hours=" + hours + ", fieldOf=" + fieldOf );
     }
-        public int checkdigit(int ID){
-        String stringOfID=Integer.toString(ID);
-        if (stringOfID.startsWith("0"))
+    public int checkID(String ID){
+        if (ID.startsWith("0"))
         {
             System.out.println("the ID mustn't start by 0");
             return 0;}
         else{
-        int digits=stringOfID.length();
+        int digits=ID.length();
         if (digits>7){
             System.out.println("the ID is long you must enter ID between 5 and 7 digits ");
-            
+            return 0;
         }
         else if (digits<5){
         System.out.println("the ID is short you must enter ID between 5 and 7 digits");
-        
-    }
-        else {return ID;}
         return 0;
+    }
+        else {return Integer.parseInt(ID);}
+        
         
         }
     }
@@ -309,10 +323,10 @@ public class SimpleUniversity {
         
 
         
-        Subject math=new Subject(41,"math",3,"math");
-        Subject software=new Subject(42,"software",3,"CS");
-        Subject database=new Subject(43,"DataBase",3,"CS");
-        Subject web=new Subject(44,"Web",4,"CS");
+        Subject math=new Subject("41","math",3,"math");
+        Subject software=new Subject("05442","software",3,"CS");
+        Subject database=new Subject("4322222","DataBase",3,"CS");
+        Subject web=new Subject("441689","Web",4,"CS");
         subjects.add(math);
         subjects.add(software);
         subjects.add(database);
